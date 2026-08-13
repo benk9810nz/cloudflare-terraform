@@ -74,6 +74,20 @@ locals {
       ]
     }
 
+    # Codified 2026-08-13: existed live since some earlier point as a
+    # dashboard-only addition, never brought into Terraform until a WARP
+    # route change's plan surfaced the drift (would otherwise have deleted
+    # this on the next apply). Grants Datacom access to the wordle app
+    # specifically, separate from sftp_access's similar Datacom-email policy.
+    work_wordle = {
+      name     = "Work - Wordle"
+      decision = "allow"
+      include = [
+        { email_domain = { domain = "datacom.co.nz" } },
+        { email_domain = { domain = "datacom.com" } },
+      ]
+    }
+
     sftp_access = {
       name     = "SFTP Access"
       decision = "allow"

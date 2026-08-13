@@ -66,12 +66,18 @@ locals {
       app_launcher_visible = true
       policy_refs          = [{ key = "shared_access", precedence = 1 }]
     }
+    # session_duration + work_wordle policy codified 2026-08-13 to match
+    # live state (see policies.tf's work_wordle comment) — was drift, not
+    # an intentional divergence, but matched here rather than reverted.
     wordle = {
       name                 = "wordle"
       domain               = "wordle.benking.co.nz"
-      session_duration     = "24h"
+      session_duration     = "336h"
       app_launcher_visible = true
-      policy_refs          = [{ key = "shared_access", precedence = 1 }]
+      policy_refs = [
+        { key = "shared_access", precedence = 1 },
+        { key = "work_wordle", precedence = 3 },
+      ]
     }
     grocery = {
       name                 = "grocery"
