@@ -19,6 +19,7 @@ locals {
     { hostname = "proxmox.benking.co.nz",    http_host_header = "proxmox.internal.benking.co.nz" },
     { hostname = "job-hunter.benking.co.nz", http_host_header = "job-hunter.benking.co.nz" },
     { hostname = "jira.benking.co.nz",       http_host_header = "jira.internal.benking.co.nz" },
+    { hostname = "mcu.benking.co.nz",        http_host_header = "mcu.internal.benking.co.nz" },
     { hostname = "notepad.benking.co.nz",    http_host_header = "notepad.benking.co.nz" },
     { hostname = "sftp.benking.co.nz",       http_host_header = "sftp.benking.co.nz" },
   ]
