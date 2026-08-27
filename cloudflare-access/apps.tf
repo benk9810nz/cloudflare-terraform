@@ -16,7 +16,10 @@ locals {
       domain               = "jira.benking.co.nz"
       session_duration     = "336h"
       app_launcher_visible = true
-      policy_refs          = [{ key = "shared_access", precedence = 1 }]
+      # Own policy (not shared_access) so the session is 336h, not 30m — the
+      # Taskboard SPA is left open all day and shared_access's short session
+      # broke background fetches. See policies.tf jira_access.
+      policy_refs          = [{ key = "jira_access", precedence = 1 }]
     }
     gym_health_sync = {
       name                 = "gym app"

@@ -20,6 +20,28 @@ locals {
       session_duration = "30m"
     }
 
+    # Dedicated jira policy — identical membership to shared_access but a long
+    # session. jira.benking.co.nz (Taskboard) is a single-page app that polls in
+    # the background and gets left open all day. shared_access's 30m session
+    # expires mid-use, and the SPA's subsequent fetch() calls then follow a
+    # cross-origin redirect to the Access login origin that fails CORS —
+    # surfacing as "Failed to fetch" on save. A long session makes that rare;
+    # the app also reloads itself on the redirect now. The app-level
+    # session_duration ("336h" in apps.tf) is ignored while a policy sets its
+    # own, so it has to live here.
+    jira_access = {
+      name     = "Jira Taskboard Access"
+      decision = "allow"
+      include = [
+        { email = { email = "benjaminkingnz@gmail.com" } },
+        { service_token = { token_id = "301f7065-e612-4d87-94f8-f882fc7ea23e" } },
+        { service_token = { token_id = "18688449-b997-479b-a916-f32e0d66900e" } },
+        { login_method = { id = "5247b68d-2ffb-4d4f-9feb-3e40cf1336c4" } },
+        { login_method = { id = "1c256734-d5bd-4f32-bda6-dbe6d79b5ac6" } },
+      ]
+      session_duration = "336h"
+    }
+
     bypass_everyone = {
       name     = "Bypass"
       decision = "bypass"
