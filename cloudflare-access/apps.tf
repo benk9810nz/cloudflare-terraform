@@ -50,7 +50,9 @@ locals {
       domain               = "proxmox.benking.co.nz"
       session_duration     = "24h"
       app_launcher_visible = true
-      policy_refs          = [{ key = "shared_access", precedence = 1 }]
+      # proxmox_access, not shared_access — keeps proxmox on a 30m session
+      # while shared_access moved to 24h. See policies.tf.
+      policy_refs          = [{ key = "proxmox_access", precedence = 1 }]
     }
     gym = {
       name                 = "Gym"

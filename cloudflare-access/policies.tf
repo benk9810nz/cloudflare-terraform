@@ -17,6 +17,26 @@ locals {
         { login_method = { id = "5247b68d-2ffb-4d4f-9feb-3e40cf1336c4" } },
         { login_method = { id = "1c256734-d5bd-4f32-bda6-dbe6d79b5ac6" } },
       ]
+      # 30m → 24h (2026-08-27): the short session silently broke every
+      # long-lived SPA on this policy (notepad, grocery, job-hunter, …) — once
+      # the Access cookie lapsed with the tab open, background fetches hit a
+      # cross-origin login redirect that fails CORS. proxmox is deliberately
+      # kept at 30m via its own proxmox_access policy below.
+      session_duration = "24h"
+    }
+
+    # proxmox keeps the short 30m session — the one app where a stale
+    # authenticated tab is worth avoiding. Identical membership to shared_access.
+    proxmox_access = {
+      name     = "Email, Service Token & Google Access (30m)"
+      decision = "allow"
+      include = [
+        { email = { email = "benjaminkingnz@gmail.com" } },
+        { service_token = { token_id = "301f7065-e612-4d87-94f8-f882fc7ea23e" } },
+        { service_token = { token_id = "18688449-b997-479b-a916-f32e0d66900e" } },
+        { login_method = { id = "5247b68d-2ffb-4d4f-9feb-3e40cf1336c4" } },
+        { login_method = { id = "1c256734-d5bd-4f32-bda6-dbe6d79b5ac6" } },
+      ]
       session_duration = "30m"
     }
 
