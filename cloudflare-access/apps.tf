@@ -125,6 +125,18 @@ locals {
       app_launcher_visible = true
       policy_refs          = [{ key = "shared_access", precedence = 1 }]
     }
+
+    # Added 2026-08-30: Money Tracker (net worth + spending dashboard) on
+    # react-apps CTID 225 port 5004. The app itself has no login, so Access
+    # is the only gate on personal financial data — kept on shared_access
+    # (email + Google, 24h) like the other single-user apps.
+    money_tracker = {
+      name                 = "money-tracker"
+      domain               = "money.benking.co.nz"
+      session_duration     = "24h"
+      app_launcher_visible = true
+      policy_refs          = [{ key = "shared_access", precedence = 1 }]
+    }
     root = {
       name                 = "benking.co.nz"
       domain               = "benking.co.nz"
