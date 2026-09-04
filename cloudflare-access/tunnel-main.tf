@@ -23,6 +23,12 @@ locals {
     { hostname = "money.benking.co.nz",      http_host_header = "money.internal.benking.co.nz" },
     { hostname = "notepad.benking.co.nz",    http_host_header = "notepad.benking.co.nz" },
     { hostname = "sftp.benking.co.nz",       http_host_header = "sftp.benking.co.nz" },
+    # heater.benking.co.nz — NOT Access-gated (no apps.tf entry, intentional).
+    # Public one-button "turn the Goldair heater off" page + webhook proxy,
+    # guarded by the 43-char webhook id. Rewrites to heater.internal so Caddy's
+    # on-demand-TLS *.internal block serves it. See homelab-ansible-playbooks
+    # files/Caddyfile @heater and config/automations.yaml.
+    { hostname = "heater.benking.co.nz",     http_host_header = "heater.internal.benking.co.nz" },
   ]
   main_tunnel_ssh_ingress = [
     { hostname = "ssh.benking.co.nz",            service = "ssh://192.168.1.50:22" },
