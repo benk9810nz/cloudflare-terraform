@@ -137,6 +137,17 @@ locals {
       app_launcher_visible = true
       policy_refs          = [{ key = "shared_access", precedence = 1 }]
     }
+    # Added 2026-09-23: public carve-out from the root domain's login gate for
+    # the kitchen 3D walkthrough served by personal-landing at /kitchen/.
+    # Path-scoped apps take precedence over the bare-domain app, so only
+    # /kitchen and below are public — the rest of benking.co.nz stays gated.
+    kitchen = {
+      name                 = "kitchen walkthrough (public)"
+      domain               = "benking.co.nz/kitchen"
+      session_duration     = "24h"
+      app_launcher_visible = false
+      policy_refs          = [{ key = "bypass_everyone", precedence = 1 }]
+    }
     root = {
       name                 = "benking.co.nz"
       domain               = "benking.co.nz"
