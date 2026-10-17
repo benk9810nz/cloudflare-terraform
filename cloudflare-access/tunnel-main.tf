@@ -29,6 +29,11 @@ locals {
     # on-demand-TLS *.internal block serves it. See homelab-ansible-playbooks
     # files/Caddyfile @heater and config/automations.yaml.
     { hostname = "heater.benking.co.nz",     http_host_header = "heater.internal.benking.co.nz" },
+    # bens-list.benking.co.nz — NOT Access-gated (no apps.tf entry, intentional:
+    # Ben asked for anyone to be able to open it). "Ben's List for Jane" house
+    # jobs + Bunnings list, react-apps CTID 225:5007. Rewrites to
+    # bens-list.internal so Caddy's @bens-list matcher serves it.
+    { hostname = "bens-list.benking.co.nz",  http_host_header = "bens-list.internal.benking.co.nz" },
   ]
   main_tunnel_ssh_ingress = [
     { hostname = "ssh.benking.co.nz",            service = "ssh://192.168.1.50:22" },

@@ -21,6 +21,7 @@ locals {
     "stuff-quiz", "gym", "grocery", "wordle", "@", "admin", "app", "docs",
     "ansible", "proxmox", "job-hunter", "jira", "notepad", "sftp",
     "ssh", "ssh-cloudflare", "mcu", "money", "heater",
+    "bens-list",
   ]
 }
 
