@@ -17,6 +17,8 @@ locals {
     { hostname = "docs.benking.co.nz",       http_host_header = "docs.benking.co.nz" },
     { hostname = "ansible.benking.co.nz",    http_host_header = "ansible.internal.benking.co.nz" },
     { hostname = "proxmox.benking.co.nz",    http_host_header = "proxmox.internal.benking.co.nz" },
+    # ProxUI on platform-services (homelab-ansible-playbooks deploy/deploy-proxui.yml)
+    { hostname = "proxui.benking.co.nz",     http_host_header = "proxui.internal.benking.co.nz" },
     { hostname = "job-hunter.benking.co.nz", http_host_header = "job-hunter.benking.co.nz" },
     { hostname = "jira.benking.co.nz",       http_host_header = "jira.internal.benking.co.nz" },
     { hostname = "mcu.benking.co.nz",        http_host_header = "mcu.internal.benking.co.nz" },

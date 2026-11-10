@@ -54,6 +54,15 @@ locals {
       # while shared_access moved to 24h. See policies.tf.
       policy_refs          = [{ key = "proxmox_access", precedence = 1 }]
     }
+    proxui = {
+      name                 = "ProxUI"
+      domain               = "proxui.benking.co.nz"
+      session_duration     = "24h"
+      app_launcher_visible = true
+      # Same 30m proxmox_access policy as Proxmox itself — ProxUI holds an
+      # Administrator API token, so it gets the same short session.
+      policy_refs          = [{ key = "proxmox_access", precedence = 1 }]
+    }
     gym = {
       name                 = "Gym"
       domain               = "gym.benking.co.nz"
