@@ -37,8 +37,8 @@ locals {
     # bens-list.internal so Caddy's @bens-list matcher serves it.
     { hostname = "bens-list.benking.co.nz",  http_host_header = "bens-list.internal.benking.co.nz" },
   ]
-  main_tunnel_ssh_ingress = [
-    { hostname = "ssh.benking.co.nz",            service = "ssh://192.168.1.50:22" },
-    { hostname = "ssh-cloudflare.benking.co.nz", service = "ssh://localhost:22" },
-  ]
+  # 2026-11-15: ssh.benking.co.nz (old Pi on the retired 192.168.1.x subnet)
+  # and ssh-cloudflare.benking.co.nz (retired GitHub runner) removed. Remote
+  # access is WARP now. Add SSH-over-tunnel routes back here if ever needed.
+  main_tunnel_ssh_ingress = []
 }

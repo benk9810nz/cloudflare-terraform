@@ -3,9 +3,7 @@
 # every push to cloudflared-config/config.yml. Brought into Terraform
 # 2026-07-21.
 #
-# ssh / ssh-cloudflare are SSH-only ingress rules but the old sync script
-# CNAME'd them anyway (doesn't distinguish service scheme) — kept as-is here
-# to match live state, not "fixed".
+# ssh / ssh-cloudflare (SSH-only ingress) removed 2026-11-15.
 #
 # data.cloudflare_zone.benking is already declared in tunnel-mission-control.tf.
 #
@@ -20,7 +18,7 @@ locals {
   main_tunnel_dns_names = [
     "stuff-quiz", "gym", "grocery", "wordle", "@", "admin", "app", "docs",
     "ansible", "proxmox", "job-hunter", "jira", "notepad", "sftp",
-    "ssh", "ssh-cloudflare", "mcu", "money", "heater",
+    "mcu", "money", "heater",
     "bens-list", "proxui",
   ]
 }

@@ -104,20 +104,9 @@ locals {
       app_launcher_visible = true
       policy_refs          = [{ key = "shared_access", precedence = 1 }]
     }
-    ssh_cloudflare = {
-      name                 = "SSH Clouflare Github Runner"
-      domain               = "ssh-cloudflare.benking.co.nz"
-      session_duration     = "24h"
-      app_launcher_visible = true
-      # GitHub runner service-token policy removed 2026-11-15 (cloudflared-config
-      # retired 2026-07-22). Hostname is still tunneled, so it stays gated to
-      # Ben only until the app + DNS + ingress are removed.
-      policy_refs          = [{ key = "ssh_access", precedence = 1 }]
-    }
     admin = {
       name                 = "admin"
       domain               = "admin.benking.co.nz"
-      extra_domains        = ["ssh.benking.co.nz"]
       session_duration     = "24h"
       app_launcher_visible = true
       policy_refs          = [{ key = "ssh_access", precedence = 1 }]
