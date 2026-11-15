@@ -40,10 +40,7 @@ locals {
       domain               = "ansible.benking.co.nz"
       session_duration     = "24h"
       app_launcher_visible = true
-      policy_refs = [
-        { key = "semaphore_ansible_runners", precedence = 1 },
-        { key = "shared_access", precedence = 2 },
-      ]
+      policy_refs          = [{ key = "shared_access", precedence = 1 }]
     }
     proxmox = {
       name                 = "Proxmox (Demo)"
@@ -112,7 +109,10 @@ locals {
       domain               = "ssh-cloudflare.benking.co.nz"
       session_duration     = "24h"
       app_launcher_visible = true
-      policy_refs          = [{ key = "cloudflared_github_runner_ssh", precedence = 1 }]
+      # GitHub runner service-token policy removed 2026-11-15 (cloudflared-config
+      # retired 2026-07-22). Hostname is still tunneled, so it stays gated to
+      # Ben only until the app + DNS + ingress are removed.
+      policy_refs          = [{ key = "ssh_access", precedence = 1 }]
     }
     admin = {
       name                 = "admin"

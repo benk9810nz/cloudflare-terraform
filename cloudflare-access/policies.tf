@@ -7,13 +7,16 @@
 # are pre-existing objects in the Cloudflare account, not managed here.
 locals {
   policies = {
+    # 2026-11-15: unused service tokens removed from shared/proxmox/jira
+    # ("Testing - DELETE", "Jira - VS Code") along with the
+    # semaphore_ansible_runners + cloudflared_github_runner_ssh policies
+    # (GitHub runner tokens, unused since May/July). Policy names kept as-is
+    # so Cloudflare updates them in place.
     shared_access = {
       name     = "Email, Service Token & Google Access"
       decision = "allow"
       include = [
         { email = { email = "benjaminkingnz@gmail.com" } },
-        { service_token = { token_id = "301f7065-e612-4d87-94f8-f882fc7ea23e" } },
-        { service_token = { token_id = "18688449-b997-479b-a916-f32e0d66900e" } },
         { login_method = { id = "5247b68d-2ffb-4d4f-9feb-3e40cf1336c4" } },
         { login_method = { id = "1c256734-d5bd-4f32-bda6-dbe6d79b5ac6" } },
       ]
@@ -32,8 +35,6 @@ locals {
       decision = "allow"
       include = [
         { email = { email = "benjaminkingnz@gmail.com" } },
-        { service_token = { token_id = "301f7065-e612-4d87-94f8-f882fc7ea23e" } },
-        { service_token = { token_id = "18688449-b997-479b-a916-f32e0d66900e" } },
         { login_method = { id = "5247b68d-2ffb-4d4f-9feb-3e40cf1336c4" } },
         { login_method = { id = "1c256734-d5bd-4f32-bda6-dbe6d79b5ac6" } },
       ]
@@ -54,8 +55,6 @@ locals {
       decision = "allow"
       include = [
         { email = { email = "benjaminkingnz@gmail.com" } },
-        { service_token = { token_id = "301f7065-e612-4d87-94f8-f882fc7ea23e" } },
-        { service_token = { token_id = "18688449-b997-479b-a916-f32e0d66900e" } },
         { login_method = { id = "5247b68d-2ffb-4d4f-9feb-3e40cf1336c4" } },
         { login_method = { id = "1c256734-d5bd-4f32-bda6-dbe6d79b5ac6" } },
       ]
@@ -68,12 +67,6 @@ locals {
       include  = [{ everyone = {} }]
     }
 
-    semaphore_ansible_runners = {
-      name     = "Semaphore Ansible Runners"
-      decision = "non_identity"
-      include  = [{ service_token = { token_id = "4e494564-0c8e-4de4-bbbe-23719d548f05" } }]
-    }
-
     shawn_temp = {
       name     = "Shawn Temp"
       decision = "allow"
@@ -81,13 +74,6 @@ locals {
         { email = { email = "benjaminkingnz@gmail.com" } },
         { email = { email = "shawnchenofficial@gmail.com" } },
       ]
-    }
-
-    cloudflared_github_runner_ssh = {
-      name     = "Cloudflared Github Runner SSH"
-      decision = "non_identity"
-      include  = [{ service_token = { token_id = "250143da-0323-41a2-a01a-a0bb5b76c318" } }]
-      session_duration = "30m"
     }
 
     ssh_access = {
