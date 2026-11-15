@@ -76,6 +76,22 @@ locals {
       ]
     }
 
+    # TEMPORARY (2026-11-15): kept for one apply so apps move off them first;
+    # Cloudflare refuses to delete a policy an app still uses and the provider
+    # just retries. Remove both in the follow-up commit.
+    semaphore_ansible_runners = {
+      name     = "Semaphore Ansible Runners"
+      decision = "non_identity"
+      include  = [{ service_token = { token_id = "4e494564-0c8e-4de4-bbbe-23719d548f05" } }]
+    }
+
+    cloudflared_github_runner_ssh = {
+      name             = "Cloudflared Github Runner SSH"
+      decision         = "non_identity"
+      include          = [{ service_token = { token_id = "250143da-0323-41a2-a01a-a0bb5b76c318" } }]
+      session_duration = "30m"
+    }
+
     ssh_access = {
       name             = "SSH Access"
       decision         = "allow"
