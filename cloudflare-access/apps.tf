@@ -28,13 +28,6 @@ locals {
       app_launcher_visible = true
       policy_refs          = [{ key = "bypass_everyone", precedence = 1 }]
     }
-    browser = {
-      name                 = "browser"
-      domain               = "browser.benking.co.nz"
-      session_duration     = "24h"
-      app_launcher_visible = true
-      policy_refs          = [{ key = "shared_access", precedence = 1 }]
-    }
     ansible = {
       name                 = "ansible"
       domain               = "ansible.benking.co.nz"
@@ -131,6 +124,16 @@ locals {
     money_tracker = {
       name                 = "money-tracker"
       domain               = "money.benking.co.nz"
+      session_duration     = "24h"
+      app_launcher_visible = true
+      policy_refs          = [{ key = "shared_access", precedence = 1 }]
+    }
+    # Added 2026-11-17: mcu.benking.co.nz had a tunnel route since 2026-08-15
+    # but no Access app, so it was public. Same shared_access gate as the other
+    # single-user apps.
+    mcu_watchlist = {
+      name                 = "mcu-watchlist"
+      domain               = "mcu.benking.co.nz"
       session_duration     = "24h"
       app_launcher_visible = true
       policy_refs          = [{ key = "shared_access", precedence = 1 }]
